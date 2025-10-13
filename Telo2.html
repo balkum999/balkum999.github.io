@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Burgenk Café • Metal Ghibli × Starboy (Final)</title>
+
+<!-- Fonts (Google) - if offline, fallback to serif/sans -->
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bg-0:#070707;
+  --bg-1:#0e0e10;
+  --panel:#0f1413;
+  --muted:#9aa0a0;
+  --cream:#efeae2;
+  --gold:#c9a84d;
+  --accent:#6b6f72;
+  --glass: rgba(255,255,255,0.03);
+  --glass-2: rgba(255,255,255,0.02);
+  --max-width:980px;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:"Poppins",system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",sans-serif;background:
+  radial-gradient(circle at 10% 10%, rgba(201,168,77,0.04), transparent 20%),
+  linear-gradient(180deg,var(--bg-0),#060607); color:var(--cream); -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;}
+.app{max-width:var(--max-width);margin:12px auto;border-radius:14px;overflow:hidden;display:flex;gap:0;box-shadow:0 22px 60px rgba(0,0,0,0.7)}
+/* Main / Side */
+.main{flex:1.3;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));position:relative;overflow:hidden}
+.side{width:360px;min-width:260px;padding:18px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.03));border-left:1px solid rgba(255,255,255,0.02);display:flex;flex-direction:column;gap:12px}
+
+/* Brand */
+.brand{display:flex;gap:12px;align-items:center}
+.logo{width:64px;height:64px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;background:linear-gradient(135deg,#151515,#2b2b2b);color:var(--gold);border:1px solid rgba(255,255,255,0.03);box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+h1{margin:0;font-size:20px;letter-spacing:1px;font-family:"Cinzel",serif;color:var(--gold);text-shadow:0 4px 18px rgba(201,168,77,0.06)}
+.lead{margin:4px 0 10px;color:var(--muted);font-size:13px}
+
+/* background animation layer (Ghibli-ish) */
+.bg-layer{position:absolute;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:0.14}
+
+/* Slider */
+.slider{margin-top:12px;height:78vh;border-radius:12px;overflow:hidden;position:relative;border:1px solid rgba(255,255,255,0.02)}
+.track{display:flex;height:100%;transition:transform .45s cubic-bezier(.2,.9,.2,1)}
+.slide{min-width:100%;padding:18px;overflow:auto}
+.slide h2{margin:0;color:var(--gold);font-family:"Cinzel",serif;font-size:20px}
+.slide p.lead{color:var(--muted);margin-top:6px}
+
+/* menu cards */
+.cats{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.cat{padding:6px 10px;border-radius:999px;background:transparent;border:1px solid var(--glass-2);cursor:pointer;color:var(--muted);font-size:13px}
+.cat.active{background:linear-gradient(90deg,#1b1511,#2b241f);color:var(--gold);box-shadow:0 10px 28px rgba(0,0,0,0.6)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:10px;border-radius:12px;display:flex;gap:10px;align-items:center;border:1px solid var(--glass-2)}
+.illu{width:72px;height:72px;border-radius:10px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,#0e1412,#121717)}
+.card h3{margin:0;font-size:15px;color:var(--cream);font-weight:700}
+.card small{display:block;color:var(--muted);margin-top:6px}
+.qty{display:flex;gap:8px;align-items:center;margin-top:8px}
+.qty input{width:56px;padding:6px;border-radius:8px;border:1px solid var(--glass-2);text-align:center;background:transparent;color:var(--cream)}
+.temp-select{padding:6px;border-radius:8px;border:1px solid var(--glass-2);background:transparent;color:var(--cream);font-size:13px}
+.btn{background:linear-gradient(90deg,#3b2b56,#5b3a72);color:var(--gold);border:none;padding:8px 10px;border-radius:10px;cursor:pointer;font-weight:700;box-shadow:0 8px 22px rgba(59,43,86,0.2)}
+.small-btn{background:transparent;border:1px solid var(--glass-2);padding:8px 10px;border-radius:10px;color:var(--cream);cursor:pointer}
+
+/* nav */
+.nav-row{display:flex;justify-content:space-between;margin-top:12px}
+.nav-row button{background:transparent;border:1px solid var(--glass-2);padding:10px 12px;border-radius:10px;color:var(--cream);cursor:pointer}
+
+/* sidebar */
+.side h2{margin:0;color:var(--gold);font-family:"Cinzel",serif}
+.nameRow{display:flex;gap:8px}
+.nameRow input{flex:1;padding:10px;border-radius:8px;border:1px solid var(--glass-2);background:transparent;color:var(--cream)}
+.guestBtn{padding:8px 10px;border-radius:8px;border:1px solid var(--glass-2);background:transparent;color:var(--cream);cursor:pointer}
+.cart{flex:1;overflow:auto;margin-top:6px}
+.cart-item{display:flex;gap:10px;align-items:center;padding:8px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);margin-bottom:8px;border:1px solid var(--glass-2)}
+.cart-item img{width:56px;height:56px;border-radius:8px;object-fit:cover}
+.controls{display:flex;gap:8px;align-items:center}
+.summary{padding:12px;border-radius:10px;background:linear-gradient(90deg,rgba(255,255,255,0.01),transparent)}
+.row{display:flex;justify-content:space-between;margin:6px 0;color:var(--muted)}
+.payRow{display:flex;gap:8px;margin-top:8px}
+.payRow input{flex:1;padding:10px;border-radius:8px;border:1px solid var(--glass-2);background:transparent;color:var(--cream)}
+.payBtn{background:var(--gold);color:#111;padding:10px;border-radius:8px;border:none;cursor:pointer;font-weight:700}
+.progress{margin-top:12px;display:none;flex-direction:column;gap:8px;align-items:center}
+.bar{width:100%;height:12px;background:rgba(255,255,255,0.03);border-radius:8px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0%;background:linear-gradient(90deg,#ffd7a8,#ffd79e);transition:width .2s}
+
+/* receipt modal */
+.modal{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:999;background:linear-gradient(180deg,#0f1211,#111214);padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);max-width:94%;width:420px;box-shadow:0 30px 80px rgba(0,0,0,0.7)}
+.modal h3{margin:0;color:var(--gold);font-family:"Cinzel"}
+.modal pre{white-space:pre-wrap;color:var(--cream);font-size:13px;background:transparent;padding:8px;border-radius:8px}
+.modal .row{display:flex;gap:8px;justify-content:flex-end}
+
+/* popup welcome */
+.popup { position: fixed; inset:0; display:flex;align-items:center;justify-content:center;flex-direction:column;background:linear-gradient(180deg, rgba(0,0,0,0.85), rgba(0,0,0,0.9)); z-index:1000; animation:popupIn .7s ease; }
+@keyframes popupIn { from {opacity:0; transform:scale(.98);} to {opacity:1; transform:scale(1);} }
+.popup .logoBig{font-family:"Cinzel"; font-size:36px; color:var(--gold); letter-spacing:2px; text-shadow:0 8px 28px rgba(201,168,77,0.08)}
+.popup p{color:var(--muted); margin-top:10px; text-align:center}
+
+/* toast */
+.toast{position:fixed;right:16px;bottom:16px;background:#111;color:var(--cream);padding:10px 14px;border-radius:10px;opacity:0;transform:translateY(8px);transition:all .25s;z-index:1100}
+.toast.show{opacity:1;transform:translateY(0)}
+
+/* responsive */
+@media(max-width:900px){
+  .app{flex-direction:column}
+  .side{width:100%;border-left:none;border-top:1px solid rgba(255,255,255,0.02)}
+  .slider{height:62vh}
+  .grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:420px){
+  .grid{grid-template-columns:1fr}
+  .side{padding:12px}
+}
+</style>
+</head>
+<body>
+
+<!-- background animation (bokeh + subtle rain) -->
+<div class="bg-layer" aria-hidden="true">
+  <svg viewBox="0 0 1200 800" preserveAspectRatio="none" style="width:100%;height:100%;">
+    <defs><filter id="blur2"><feGaussianBlur stdDeviation="8"/></filter></defs>
+    <g fill="#ffd7a8" opacity="0.06" filter="url(#blur2)">
+      <circle cx="100" cy="80" r="40"/><circle cx="1100" cy="160" r="50"/><circle cx="500" cy="600" r="36"/><circle cx="200" cy="720" r="30"/>
+    </g>
+    <g stroke="#ffffff" stroke-width="1" stroke-linecap="round" opacity="0.02">
+      <line x1="40" y1="0" x2="50" y2="40"/><line x1="140" y1="0" x2="150" y2="40"/><line x1="240" y1="0" x2="252" y2="44"/>
+      <line x1="340" y1="0" x2="352" y2="44"/><line x1="440" y1="0" x2="450" y2="40"/><line x1="540" y1="0" x2="552" y2="44"/>
+      <line x1="640" y1="0" x2="652" y2="44"/><line x1="740" y1="0" x2="752" y2="44"/>
+    </g>
+  </svg>
+</div>
+
+<!-- welcome popup -->
+<div class="popup" id="welcomePopup" role="dialog" aria-modal="true">
+  <div class="logoBig">Burgenk Café</div>
+  <p>Selamat datang, Tuan —<br/>Metal Ghibli × Starboy sedang disiapkan ✨</p>
+  <div style="height:8px"></div>
+  <button class="btn" id="enterBtn">Masuk</button>
+</div>
+
+<!-- toast -->
+<div id="toast" class="toast">Pesanan ditambahkan</div>
+
+<!-- app -->
+<div class="app" role="application" aria-label="Burgenk Cafe Premium">
+  <main class="main">
+    <div class="brand">
+      <div class="logo">BG</div>
+      <div>
+        <h1>Burgenk Café</h1>
+        <div class="lead">Metal Ghibli × Starboy • Lo-fi • Premium</div>
+      </div>
+    </div>
+
+    <div class="slider" aria-hidden="false">
+      <div class="track" id="track">
+        <!-- SLIDE 0: HOME -->
+        <section class="slide" id="slide-0">
+          <h2>Selamat datang</h2>
+          <p class="lead">Tekan 'Mulai' untuk masuk dan pesan. Suara chime akan diputar saat popup hilang.</p>
+          <div style="margin-top:12px;display:flex;gap:10px;align-items:center">
+            <input id="startName" placeholder="Masukkan nama (misal: Tuan Sandor)" style="flex:1;padding:12px;border-radius:10px;border:1px solid var(--glass-2);background:transparent;color:var(--cream)" />
+            <button class="btn" onclick="applyName()">Mulai</button>
+          </div>
+          <div style="margin-top:18px">
+            <h3 style="margin:0;color:var(--muted)">Highlight</h3>
+            <ul style="color:var(--muted);padding-left:18px">
+              <li>Hot / Cold pada minuman</li>
+              <li>Multi-qty & hapus item</li>
+              <li>Progress + Lo-fi Starboy saat pembuatan</li>
+              <li>Riwayat pesanan & ekspor</li>
+            </ul>
+          </div>
+          <div class="nav-row">
+            <button disabled>← Kembali</button>
+            <button onclick="nextSlide()">Lihat Menu →</button>
+          </div>
+        </section>
+
+        <!-- SLIDE 1: MENU -->
+        <section class="slide" id="slide-1">
+          <h2>Menu Pilihan</h2>
+          <p class="lead">Pilih kategori, atur jumlah & suhu (untuk minuman), lalu tekan Tambah.</p>
+          <div class="cats" id="cats">
+            <div class="cat active" data-cat="all" onclick="filterCat('all', this)">Semua</div>
+            <div class="cat" data-cat="minuman" onclick="filterCat('minuman', this)">Minuman</div>
+            <div class="cat" data-cat="makanan" onclick="filterCat('makanan', this)">Makanan</div>
+            <div class="cat" data-cat="spesial" onclick="filterCat('spesial', this)">Spesial</div>
+          </div>
+
+          <div class="grid" id="grid"></div>
+
+          <div class="nav-row">
+            <button onclick="prevSlide()">← Kembali</button>
+            <button onclick="nextSlide()">Ke Keranjang →</button>
+          </div>
+        </section>
+
+        <!-- SLIDE 2: CART REVIEW -->
+        <section class="slide" id="slide-2">
+          <h2>Keranjang & Review</h2>
+          <p class="lead">Ubah jumlah atau hapus jika ada kesalahan. Total otomatis di sidebar.</p>
+          <div id="previewArea" style="margin-top:12px"></div>
+          <div class="nav-row">
+            <button onclick="prevSlide()">← Kembali</button>
+            <button onclick="nextSlide()">Pembayaran →</button>
+          </div>
+        </section>
+
+        <!-- SLIDE 3: CHECKOUT -->
+        <section class="slide" id="slide-3">
+          <h2>Pembayaran</h2>
+          <p class="lead">Masukkan nominal, tekan Bayar. Proses akan menampilkan progress & musik.</p>
+          <div style="margin-top:10px">
+            <div class="row"><span>Subtotal</span><span id="subPrev">Rp0</span></div>
+            <div class="row"><span>Pajak (5%)</span><span id="taxPrev">Rp0</span></div>
+            <div class="row"><b>Total</b><b id="totPrev">Rp0</b></div>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px">
+            <input id="payInput" type="number" placeholder="Masukkan uang..." style="flex:1;padding:10px;border-radius:8px;border:1px solid var(--glass-2);background:transparent;color:var(--cream)"/>
+            <button class="btn" onclick="payNow()">Bayar</button>
+          </div>
+
+          <div class="progress" id="progressBox">
+            <div class="bar"><i id="barFill"></i></div>
+            <div id="barText" style="color:var(--muted);font-weight:700;margin-top:6px">Menunggu...</div>
+          </div>
+
+          <div class="nav-row">
+            <button onclick="prevSlide()">← Kembali</button>
+            <button onclick="nextSlide()">Selesai →</button>
+          </div>
+        </section>
+
+        <!-- SLIDE 4: LOADING (hidden visual: progress handles) -->
+        <section class="slide" id="slide-4">
+          <h2>Proses Pesanan</h2>
+          <p class="lead">Nikmati alunan lo-fi—barista sedang menyeduh pesanan Anda.</p>
+          <div class="progress" style="display:flex; margin-top:18px;">
+            <div class="bar" style="width:90%"><i id="loadFill"></i></div>
+            <div id="loadText" style="color:var(--muted);font-weight:700;margin-top:10px">Sedang menyiapkan...</div>
+          </div>
+        </section>
+
+        <!-- SLIDE 5: DONE -->
+        <section class="slide" id="slide-5">
+          <h2>Pesanan Siap ✨</h2>
+          <div id="finalArea" style="margin-top:12px"></div>
+          <div style="display:flex;gap:8px;margin-top:12px">
+            <button class="btn" onclick="orderAgain()">Pesan Lagi</button>
+            <button class="small-btn" onclick="exportHistory()">Ekspor Riwayat</button>
+            <button class="small-btn" onclick="showReceipt()">Lihat Struk</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- SIDEBAR -->
+  <aside class="side" aria-label="Sidebar cart">
+    <h2>Ringkasan Pesanan</h2>
+    <div class="nameRow">
+      <input id="buyerName" placeholder="Nama pembeli..." />
+      <button class="guestBtn" onclick="setGuest()">Guest</button>
+    </div>
+
+    <div class="cart" id="cartList"><div style="text-align:center;color:var(--muted);padding:12px">Keranjang kosong</div></div>
+
+    <div class="summary">
+      <div class="row"><span>Subtotal</span><span id="subtotal">Rp0</span></div>
+      <div class="row"><span>Pajak (5%)</span><span id="tax">Rp0</span></div>
+      <div class="row"><b>Total</b><b id="total">Rp0</b></div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <input id="payAmount" type="number" placeholder="Masukkan uang..." />
+        <button class="payBtn" onclick="payNow()">Bayar</button>
+      </div>
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="small-btn" onclick="viewHistory()">Riwayat</button>
+        <button class="small-btn" onclick="printReceipt()">Cetak Struk</button>
+      </div>
+
+      <div class="progress" id="sideProgress" style="display:none">
+        <div class="bar"><i id="sideBar"></i></div>
+        <div id="sideText" style="color:var(--muted);margin-top:6px">Menunggu...</div>
+      </div>
+    </div>
+
+    <div style="margin-top:auto;font-size:12px;color:var(--muted);text-align:center">Burgenk Café • Metal Ghibli × Starboy • Since 2025</div>
+  </aside>
+</div>
+
+<!-- Receipt modal (hidden) -->
+<div id="receiptModal" class="modal" style="display:none;">
+  <h3>Struk Pesanan</h3>
+  <pre id="receiptText">-</pre>
+  <div class="row">
+    <button class="btn" onclick="copyReceipt()">Salin</button>
+    <button class="small-btn" onclick="closeReceipt()">Tutup</button>
+  </div>
+</div>
+
+<!-- small hidden audio control to resume AudioContext on interaction -->
+<button id="audioUnlock" style="position:fixed;left:-9999px;opacity:0">unlock</button>
+
+<script>
+/* ========= Data: Menu ========= */
+const MENU = [
+  {id:'kopi', cat:'minuman', name:'Kopi Hitam', price:5000, svg:svgCup('#2b2b2b','#3b3b3b')},
+  {id:'eskopi',cat:'minuman', name:'Es Kopi Susu', price:9000, svg:svgGlass('#2b3338','#314149')},
+  {id:'cappu',cat:'minuman', name:'Cappuccino', price:8000, svg:svgCup('#3b2b22','#44392e')},
+  {id:'latte',cat:'minuman', name:'Latte', price:10000, svg:svgCup('#3a3229','#4b3f34')},
+  {id:'matcha',cat:'minuman', name:'Matcha Latte', price:12000, svg:svgCup('#27462f','#2f5a36')},
+  {id:'roti',cat:'makanan', name:'Roti Bakar', price:6000, svg:svgToast('#3b3228','#4a3f34')},
+  {id:'donat',cat:'makanan', name:'Donat', price:5000, svg:svgDonut('#3b2b36','#4a3646')},
+  {id:'crois',cat:'makanan', name:'Croissant', price:10000, svg:svgCroissant('#3b2f22','#4a3f2e')},
+  {id:'burger',cat:'makanan', name:'Burger Burgenk', price:15000, svg:svgBurger('#3b2f22','#4a3f2e')},
+  {id:'fries',cat:'makanan', name:'Kentang Goreng', price:7000, svg:svgFries('#3b3322','#4a4128')},
+  {id:'ramen',cat:'spesial', name:'Ramen Mini', price:18000, svg:svgBowl('#3a2b1f','#4a3b2f')},
+  {id:'pancake',cat:'spesial', name:'Pancake Ghibli', price:14000, svg:svgPancake('#3b2b2b','#4a3b3b')}
+];
+
+let cart = []; // items: {id,name,price,qty,temp}
+let slide = 0;
+
+/* elements */
+const track = document.getElementById('track');
+const grid = document.getElementById('grid');
+const toastEl = document.getElementById('toast');
+const cartList = document.getElementById('cartList');
+const welcomePopup = document.getElementById('welcomePopup');
+const enterBtn = document.getElementById('enterBtn');
+
+/* audio unlock for mobile */
+const audioUnlock = document.getElementById('audioUnlock');
+audioUnlock.addEventListener('click', ()=>{ ensureAudio(); audioUnlock.style.display='none'; });
+
+/* welcome behavior */
+enterBtn.addEventListener('click', ()=>{ playChime(); closeWelcome(); });
+function closeWelcome(){
+  welcomePopup.style.transition='all .6s ease'; welcomePopup.style.opacity=0; setTimeout(()=> welcomePopup.style.display='none',700);
+}
+
+/* populate grid */
+function renderGrid(list=MENU){
+  grid.innerHTML = list.map(it=>`
+    <div class="card" data-cat="${it.cat}">
+      <div class="illu">${wrapSvg(it.svg)}</div>
+      <div style="flex:1">
+        <h3>${it.name}</h3>
+        <small>Rp${it.price}</small>
+        <div class="qty">
+          ${ it.cat==='minuman' ? `<select id="temp-${it.id}" class="temp-select"><option value="Hot">Hot</option><option value="Cold">Cold</option></select>` : '' }
+          <input type="number" min="1" value="1" id="q-${it.id}" />
+          <button class="btn" onclick="addToCart('${it.id}')">Tambah</button>
+        </div>
+      </div>
+      <div class="meta"></div>
+    </div>
+  `).join('');
+}
+renderGrid();
+
+/* filter categories */
+function filterCat(cat, el){
+  document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  if(cat==='all') renderGrid();
+  else renderGrid(MENU.filter(m=>m.cat===cat));
+}
+
+/* navigation */
+function showSlide(i){ slide = Math.max(0, Math.min(5,i)); track.style.transform = `translateX(-${slide*100}%)`; if(slide===2) renderPreview(); if(slide===3) recalcAll(); if(slide===4) {} }
+function nextSlide(){ showSlide(slide+1) }
+function prevSlide(){ showSlide(slide-1) }
+
+/* name handling */
+function applyName(){
+  const v = (document.getElementById('startName').value||'').trim();
+  if(!v){ showToast('Isi nama dulu'); return; }
+  document.getElementById('buyerName').value = v;
+  showToast('Nama tersimpan: '+v);
+  nextSlide();
+}
+function setGuest(){ document.getElementById('buyerName').value = 'Tuan'; showToast('Nama diset: Tuan'); }
+
+/* add to cart (with temp) */
+function addToCart(id){
+  const item = MENU.find(m=>m.id===id);
+  const qtyEl = document.getElementById(`q-${id}`);
+  c
