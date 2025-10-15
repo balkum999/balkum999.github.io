@@ -8,3 +8,8 @@ button {
   padding: 10px 20px;
   font-size: 16px;
 }
+img {
+  margin-top: 20px;
+  max-width: 300px;
+  border-radius: 10px;
+}
