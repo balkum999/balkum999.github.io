@@ -34,3 +34,15 @@ img {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
+/* Video statis di pojok kiri bawah */
+.corner-video {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 120px; /* ubah sesuai ukuran yang kamu mau */
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  z-index: 1000; /* supaya tidak ketimpa elemen lain */
+  opacity: 0.9; /* sedikit transparan agar tidak mencolok */
+}
